@@ -8,7 +8,7 @@ public class Main {
 
         System.out.println(new MathBox().factorial(15));
 
-        System.out.println(new MathBox().dividerExceptionInside(15, 5));
+        System.out.println(new MathBox().dividerExceptionInside(14, 5));
 
         try {
             new MathBox().divider(5, 0);

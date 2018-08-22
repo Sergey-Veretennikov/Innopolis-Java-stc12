@@ -20,8 +20,7 @@ public class MathBox {
     public double dividerExceptionInside(Integer a, Integer b) {
 
         if (b != 0) {
-            return a / b;
-
+            return (double) a / b;
         } else {
             System.out.println("На ноль делить нельзя!");
             return 0;
@@ -31,7 +30,7 @@ public class MathBox {
     public double divider(Integer a, Integer b) throws MyArithmeticException {
 
         if (b != 0) {
-            return a / b;
+            return (double) a / b;
         } else {
             throw new MyArithmeticException();
         }
