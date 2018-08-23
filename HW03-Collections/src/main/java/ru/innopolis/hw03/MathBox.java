@@ -13,6 +13,7 @@ public class MathBox {
         for (Integer integer : set) {
             System.out.print(integer + " ");
         }
+        System.out.println();
     }
 
     public Integer summator() {
@@ -25,8 +26,12 @@ public class MathBox {
 
     public List splitter(Integer divider) {
         List<Double> listResult = new ArrayList();
-        for (Integer integer : set) {
-            listResult.add((double) integer / divider);
+        if (divider != 0) {
+            for (Integer integer : set) {
+                listResult.add((double) integer / divider);
+            }
+        } else {
+            listResult.add(0.);
         }
         return listResult;
     }
@@ -41,4 +46,23 @@ public class MathBox {
         }
     }
 
+    @Override
+    public String toString() {
+        return "MathBox{" +
+                "set=" + set +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MathBox mathBox = (MathBox) o;
+        return Objects.equals(set, mathBox.set);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(set);
+    }
 }
