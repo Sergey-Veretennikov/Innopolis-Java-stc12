@@ -3,7 +3,7 @@ package ru.innopolis.hw03;
 import java.util.*;
 
 public class MathBoxTwo {
-    final protected List<Integer> integerList;
+    final private List<Integer> integerList;
 
     public MathBoxTwo(Integer[] array) {
         this.integerList = removeDuplicateNumbers((ArrayList<Integer>) insertSort(array));
@@ -16,7 +16,7 @@ public class MathBoxTwo {
         System.out.println();
     }
 
-    protected List<Integer> removeDuplicateNumbers(ArrayList<Integer> arrayList) {
+    private List<Integer> removeDuplicateNumbers(ArrayList<Integer> arrayList) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < arrayList.size(); i++) {
             if (!list.contains(arrayList.get(i))) {
@@ -26,7 +26,7 @@ public class MathBoxTwo {
         return list;
     }
 
-    protected List<Integer> insertSort(Integer[] sourceArray) {
+    private List<Integer> insertSort(Integer[] sourceArray) {
         Integer[] destinationArray = new Integer[sourceArray.length];
         int destinationSize = 0;
         for (int n = 0; n < sourceArray.length; n++) {
