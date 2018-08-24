@@ -37,7 +37,6 @@ public class MathBox {
     }
 
     public void searchDeletingNumber(Integer number) {
-
         for (Iterator<Integer> i = set.iterator(); i.hasNext(); ) {
             Integer element = i.next();
             if (element == number) {
