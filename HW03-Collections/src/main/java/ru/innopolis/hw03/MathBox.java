@@ -24,7 +24,7 @@ public class MathBox {
         return sum;
     }
 
-    public List splitter(Integer divider) {
+    public List<Double> splitter(Integer divider) {
         List<Double> listResult = new ArrayList();
         if (divider != 0) {
             for (Integer integer : set) {
