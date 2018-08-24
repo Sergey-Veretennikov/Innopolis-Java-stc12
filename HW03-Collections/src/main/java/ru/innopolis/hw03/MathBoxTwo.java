@@ -95,4 +95,5 @@ public class MathBoxTwo {
     public int hashCode() {
         return Objects.hash(integerList);
     }
+
 }
