@@ -70,7 +70,7 @@ public class MathBoxTwo {
 
         for (Iterator<Integer> i = integerList.iterator(); i.hasNext(); ) {
             Integer element = i.next();
-            if (element == number) {
+            if (element.equals(number)) {
                 i.remove();
             }
         }
@@ -95,5 +95,4 @@ public class MathBoxTwo {
     public int hashCode() {
         return Objects.hash(integerList);
     }
-
 }
