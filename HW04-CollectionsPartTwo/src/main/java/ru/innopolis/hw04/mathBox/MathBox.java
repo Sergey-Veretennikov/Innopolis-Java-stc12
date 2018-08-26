@@ -8,7 +8,6 @@ import java.util.*;
 public class MathBox extends ObjectBox {
     private SortedSet<Number> numbersSortedSet;
 
-
     public MathBox(Number[] numbers) {
         this.numbersSortedSet = new TreeSet<>(Arrays.asList(checkTypeArrayElements(numbers)));
     }
@@ -49,7 +48,7 @@ public class MathBox extends ObjectBox {
     @Override
     public Object summator() {
         Double sum = 0.;
-        for (Iterator<? extends Number> iterator = numbersSortedSet.iterator(); iterator.hasNext(); ) {
+        for (Iterator<Number> iterator = numbersSortedSet.iterator(); iterator.hasNext(); ) {
             Number number = iterator.next();
             sum = sum + number.doubleValue();
         }
