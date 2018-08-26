@@ -6,7 +6,7 @@ import ru.innopolis.hw04.Exception.MyClassCastException;
 import java.util.*;
 
 public class ObjectBox {
-    private SortedSet<Object> objectSortedSet;
+    private final SortedSet<Object> objectSortedSet;
 
     public ObjectBox() {
         this.objectSortedSet = new TreeSet<>(Arrays.asList(0));
@@ -102,5 +102,25 @@ public class ObjectBox {
                     " типу " + "добовляемого элемента " + object.getClass().getName());
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "ObjectBox{" +
+                "objectSortedSet=" + objectSortedSet +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObjectBox objectBox = (ObjectBox) o;
+        return Objects.equals(objectSortedSet, objectBox.objectSortedSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(objectSortedSet);
     }
 }

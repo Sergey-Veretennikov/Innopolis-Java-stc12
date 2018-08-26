@@ -37,7 +37,7 @@ public class Main {
             mathBox.checkAvailabilityNumber(10);
             System.out.println(mathBox.summator());
             System.out.println(mathBox.splitter(5));
-            System.out.println(mathBox.checkAvailabilityNumber(8.));
+            System.out.println(mathBox.searchDeletingNumber(8.));
             System.out.println(mathBox.addONumber(11.));
             mathBox.dump();
         } catch (CheckTypeArrayElementsException e) {

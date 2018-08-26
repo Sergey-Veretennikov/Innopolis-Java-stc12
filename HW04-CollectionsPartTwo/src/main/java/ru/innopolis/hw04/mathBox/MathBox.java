@@ -6,7 +6,7 @@ import ru.innopolis.hw04.objectBox.ObjectBox;
 import java.util.*;
 
 public class MathBox extends ObjectBox {
-    private SortedSet<Number> numbersSortedSet;
+    private final SortedSet<Number> numbersSortedSet;
 
     public MathBox(Number[] numbers) {
         this.numbersSortedSet = new TreeSet<>(Arrays.asList(checkTypeArrayElements(numbers)));
@@ -92,5 +92,26 @@ public class MathBox extends ObjectBox {
                     " типу " + "добовляемого элемента " + number.getClass().getName());
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return "MathBox{" +
+                "numbersSortedSet=" + numbersSortedSet +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        MathBox mathBox = (MathBox) o;
+        return Objects.equals(numbersSortedSet, mathBox.numbersSortedSet);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), numbersSortedSet);
     }
 }
