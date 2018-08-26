@@ -70,7 +70,7 @@ public class MathBox extends ObjectBox {
         return listResult;
     }
 
-    public boolean searchDeletingObject(Number number) {
+    public boolean searchDeletingNumber(Number number) {
         for (Iterator<Number> iterator = numbersSortedSet.iterator(); iterator.hasNext(); ) {
             Number num = iterator.next();
             if (num.equals(number)) {
@@ -83,7 +83,7 @@ public class MathBox extends ObjectBox {
         return false;
     }
 
-    public boolean addObject(Number number) {
+    public boolean addONumber(Number number) {
         if (number.getClass().isInstance(numbersSortedSet.first())) {
             numbersSortedSet.add(number);
             System.out.println("Элемент " + number + " добавлен в коллекцию");

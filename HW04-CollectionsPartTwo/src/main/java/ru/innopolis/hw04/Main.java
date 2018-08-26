@@ -7,7 +7,7 @@ import ru.innopolis.hw04.objectBox.ObjectBox;
 
 public class Main {
     public static void main(String[] args) {
-        Object[] arrayObject = {5., 4.5, 5.8, 8., 'a', 10.};
+        Object[] arrayObject = {5., 4.5, 5.8, 8., 7., 10.};
         Object[] arrayObject2 = {"as", "sd", "dc", "vf", "fd"};
         Object[] arrayObject3 = {5, 4, 5, 8, 9, 10};
         Object[] arrayObject4 = {'a', 's', 'f', 'g', 'j'};
@@ -27,7 +27,7 @@ public class Main {
 
         System.out.println("---------------------------------");
 
-        Number[] arrayNumber = {5., 4.5, 5.8, 8, 9., 10.};
+        Number[] arrayNumber = {5., 4.5, 5.8, 8., 9., 10.};
         Number[] arrayNumber2 = {5, 4, 5, 8, 9, 10};
 
         try {
@@ -37,8 +37,8 @@ public class Main {
             mathBox.checkAvailabilityNumber(10);
             System.out.println(mathBox.summator());
             System.out.println(mathBox.splitter(5));
-            mathBox.searchDeletingObject(8.);
-            mathBox.addObject(11.);
+            System.out.println(mathBox.checkAvailabilityNumber(8.));
+            System.out.println(mathBox.addONumber(11.));
             mathBox.dump();
         } catch (CheckTypeArrayElementsException e) {
             e.printStackTrace();
