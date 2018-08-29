@@ -106,6 +106,6 @@ public class Employee implements Externalizable {
         age = (int) in.readObject();
         salary = (int) in.readObject();
         job = (Job) in.readObject();
-        sumSalary = sumSalary + salary;
+        sumSalary += salary;
     }
 }

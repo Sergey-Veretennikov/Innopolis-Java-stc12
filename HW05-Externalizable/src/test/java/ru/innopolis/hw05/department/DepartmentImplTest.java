@@ -101,7 +101,7 @@ public class DepartmentImplTest {
         department.save(employee5);
         int sum = 0;
         for (Employee eml : department.getEmployeeList()) {
-            sum = sum + eml.getSalary();
+            sum += eml.getSalary();
         }
         department.deserializingMethod();
         Assert.assertEquals(sum, Employee.getSumSalary());
