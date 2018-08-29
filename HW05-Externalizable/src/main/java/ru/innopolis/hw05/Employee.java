@@ -108,4 +108,5 @@ public class Employee implements Externalizable {
         job = (Job) in.readObject();
         sumSalary = sumSalary + salary;
     }
+
 }

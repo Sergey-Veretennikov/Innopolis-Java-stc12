@@ -5,4 +5,5 @@ public enum Job {
     Middle,
     Senior,
     Team_leader;
+
 }
