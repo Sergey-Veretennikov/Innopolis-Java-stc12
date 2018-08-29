@@ -17,5 +17,4 @@ public interface Department {
     boolean saveOrUpdate(Employee employee);
 
     boolean changeAllWork(Job deleteJob, Job addJob);
-
 }

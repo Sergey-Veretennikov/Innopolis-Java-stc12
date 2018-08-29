@@ -43,5 +43,4 @@ public class Main {
 
         System.out.println("sumSalary = " + Employee.getSumSalary());
     }
-
 }

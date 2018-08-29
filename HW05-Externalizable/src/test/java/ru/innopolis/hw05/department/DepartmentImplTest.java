@@ -106,5 +106,4 @@ public class DepartmentImplTest {
         department.deserializingMethod();
         Assert.assertEquals(sum, Employee.getSumSalary());
     }
-
 }
