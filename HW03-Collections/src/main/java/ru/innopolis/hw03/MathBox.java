@@ -19,11 +19,14 @@ public class MathBox {
     public Integer summator() {
         Integer sum = 0;
         for (Integer integer : set) {
-            sum = sum + integer;
+            sum += integer;
         }
         return sum;
     }
 
+    /**
+     * При divider = 0 метод возвращает List который хранит только 0
+     */
     public List<Double> splitter(Integer divider) {
         List<Double> listResult = new ArrayList();
         if (divider != 0) {
@@ -37,12 +40,8 @@ public class MathBox {
     }
 
     public void searchDeletingNumber(Integer number) {
-        for (Iterator<Integer> i = set.iterator(); i.hasNext(); ) {
-            Integer element = i.next();
-            if (element.equals(number)) {
-                i.remove();
-            }
-        }
+
+        set.remove(number);
     }
 
     @Override
