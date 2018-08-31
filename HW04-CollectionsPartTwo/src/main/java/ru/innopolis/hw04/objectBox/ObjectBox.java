@@ -8,12 +8,12 @@ import java.util.*;
 public class ObjectBox {
     private final SortedSet<Object> objectSortedSet;
 
-    public ObjectBox() {
-        this.objectSortedSet = new TreeSet<>(Arrays.asList(0));
-    }
-
     public ObjectBox(Object[] objectSet) {
         this.objectSortedSet = new TreeSet<>(Arrays.asList(checkTypeArrayElements(objectSet)));
+    }
+
+    public SortedSet<Object> getObjectSortedSet() {
+        return objectSortedSet;
     }
 
     private Object[] checkTypeArrayElements(Object[] objects) {
@@ -53,7 +53,7 @@ public class ObjectBox {
             Double sum = 0.;
             for (Iterator<Object> iterator = objectSortedSet.iterator(); iterator.hasNext(); ) {
                 Object object = iterator.next();
-                sum = sum + ((Number) object).doubleValue();
+                sum += ((Number) object).doubleValue();
             }
             return sum;
         } else {

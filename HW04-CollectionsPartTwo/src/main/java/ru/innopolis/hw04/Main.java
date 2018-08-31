@@ -18,7 +18,7 @@ public class Main {
             objectBox.checkAvailabilityObject('a');
             System.out.println(objectBox.summator());
             System.out.println(objectBox.splitter(3));
-            objectBox.searchDeletingObject(8);
+            objectBox.searchDeletingObject("8.");
             objectBox.addObject("li");
             objectBox.dump();
         } catch (MyClassCastException | CheckTypeArrayElementsException e) {
@@ -36,10 +36,11 @@ public class Main {
             mathBox.dump();
             mathBox.checkAvailabilityNumber(10);
             System.out.println(mathBox.summator());
-            System.out.println(mathBox.splitter(5));
+            System.out.println(mathBox.splitterNumber(11.));
             System.out.println(mathBox.searchDeletingNumber(8.));
             System.out.println(mathBox.addONumber(11.));
             mathBox.dump();
+            System.out.println(mathBox.toString());
         } catch (CheckTypeArrayElementsException e) {
             e.printStackTrace();
         }
