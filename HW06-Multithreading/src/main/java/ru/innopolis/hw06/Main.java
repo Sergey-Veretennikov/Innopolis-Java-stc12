@@ -13,13 +13,13 @@ public class Main {
         Counter counter = new Counter();
         new Thread(new PrintThread(counter, 5), "Wait 5 seconds").start();
         new Thread(new PrintThread(counter, 7), "Wait 7 seconds").start();
-        new Thread(new Timer(counter, 18)).start();
+        new Thread(new Timer(counter, 1000, 20)).start();
         System.out.println("Start");
 
         CounterTwo counter2 = new CounterTwo();
         new Thread(new PrintThreadTwo(counter2, 5), "Wait 5 seconds").start();
         new Thread(new PrintThreadTwo(counter2, 7), "Wait 7 seconds").start();
-        new Thread(new TimerTwo(counter2, 18)).start();
+        new Thread(new TimerTwo(counter2, 1000, 18)).start();
         System.out.println("Start");
     }
 }

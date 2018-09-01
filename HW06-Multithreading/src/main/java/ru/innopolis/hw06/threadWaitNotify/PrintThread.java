@@ -2,11 +2,11 @@ package ru.innopolis.hw06.threadWaitNotify;
 
 public class PrintThread implements Runnable {
     private final Counter counter;
-    private final int time;
+    private final int timePrint;
 
-    public PrintThread(Counter counter, int time) {
+    public PrintThread(Counter counter, int timePrint) {
         this.counter = counter;
-        this.time = time;
+        this.timePrint = timePrint;
     }
 
     public void run() {
@@ -18,11 +18,11 @@ public class PrintThread implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (counter.getCounter() % time == 0) {
+                if (counter.getCounter() != 0 && counter.getCounter() % timePrint == 0) {
                     System.out.println(nameThread);
                 }
             }
         } while (!counter.isInter());
-        System.out.println("PrintThreadTwo End");
+        System.out.println("PrintThread End");
     }
 }

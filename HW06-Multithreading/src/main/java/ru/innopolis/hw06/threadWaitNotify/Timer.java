@@ -2,21 +2,23 @@ package ru.innopolis.hw06.threadWaitNotify;
 
 public class Timer implements Runnable {
     private final Counter counter;
-    private int time;
+    private int timeOfWork;
+    private int step;
 
-    public Timer(Counter counter, int time) {
+    public Timer(Counter counter, int step, int timeOfWork) {
         this.counter = counter;
-        this.time = time;
+        this.step = step;
+        this.timeOfWork = timeOfWork;
     }
 
     public void run() {
         do {
             try {
-                Thread.sleep(1000);
+                Thread.sleep(step);
                 synchronized (counter) {
                     counter.incrementCounter();
                     System.out.println("Прошло времени: " + counter.getCounter());
-                    if (counter.getCounter() == time) {
+                    if (counter.getCounter() == timeOfWork) {
                         counter.setInter(true);
                     }
                     counter.notifyAll();
@@ -25,6 +27,6 @@ public class Timer implements Runnable {
                 e.printStackTrace();
             }
         } while (!counter.isInter());
-        System.out.println("TimerTwo End");
+        System.out.println("Timer End");
     }
 }
