@@ -27,7 +27,7 @@ public class MathBoxProxy implements InvocationHandler {
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         Gson gson = new Gson();
         Method[] methods = mathBoxInter.getClass().getDeclaredMethods();
-        for (Method met : methods)
+        for (Method met : methods) {
             if (met.getName().equals(method.getName())) {
                 if (met.isAnnotationPresent(Logged.class)) {
                     System.out.println("Выполняется метод summator");
@@ -48,7 +48,9 @@ public class MathBoxProxy implements InvocationHandler {
                     Set<Integer> gs = gson.fromJson(readGsonFile(), type);
                     returnFieldSet().set(mathBoxInter, gs);
                 }
+                return method.invoke(mathBoxInter, args);
             }
+        }
         return method.invoke(mathBoxInter, args);
     }
 
