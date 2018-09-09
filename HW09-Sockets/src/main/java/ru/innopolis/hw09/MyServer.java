@@ -3,16 +3,16 @@ package ru.innopolis.hw09;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MyServer {
     final private Integer SERVER_PORT = 4999;
     private final Scanner scanner = new Scanner(System.in);
     private String mes;
     private Socket socket;
-    private List<ClientHandler> clientHandlerList = new ArrayList<>();
+    private List<ClientHandler> clientHandlerList = new CopyOnWriteArrayList<>();
 
     public MyServer() {
         myServerListens();
