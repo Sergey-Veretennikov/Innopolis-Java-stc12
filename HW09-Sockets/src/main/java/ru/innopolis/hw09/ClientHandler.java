@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientHandler implements Runnable {
-    static int clients_count = 0;
+    static volatile int clients_count = 0;
     private MyServer myServer;
     private Socket socket;
     private BufferedWriter out;

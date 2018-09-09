@@ -36,11 +36,6 @@ public class MyServer {
             System.out.println("Server closed");
         }
     }
-
-    public static void main(String[] args) {
-        new MyServer();
-    }
-
     /**
      * Не совсем нравиться реализация, но пока так.
      */
@@ -55,11 +50,11 @@ public class MyServer {
         }).start();
     }
 
-    public void remove(ClientHandler clientHandler) {
+    public synchronized void remove(ClientHandler clientHandler) {
         clientHandlerList.remove(clientHandler);
     }
 
-    public void broadcastMsg(String messeg) {
+    public synchronized void broadcastMsg(String messeg) {
         for (ClientHandler clHan : clientHandlerList) {
             clHan.sendMsg(messeg);
         }

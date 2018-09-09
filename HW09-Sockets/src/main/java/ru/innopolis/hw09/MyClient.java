@@ -5,6 +5,12 @@ import java.net.Socket;
 import java.util.Scanner;
 
 public class MyClient {
+    public static void main(String[] args) {
+        new MyClient().run();
+    }
+
+
+
     final String SERVER_ADDR = "localhost";
     final Integer SERVER_PORT = 4999;
     private final Scanner scanner = new Scanner(System.in);
@@ -20,10 +26,6 @@ public class MyClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new MyClient().run();
     }
 
     public void run() {
