@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MyServer {
-    final private Integer SERVER_PORT = 4999;
+    private final Integer SERVER_PORT = 4999;
     private final Scanner scanner = new Scanner(System.in);
     private String mes;
     private Socket socket;
