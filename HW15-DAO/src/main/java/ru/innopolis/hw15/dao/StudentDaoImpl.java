@@ -84,7 +84,6 @@ public class StudentDaoImpl implements StudentDao {
         }
     }
 
-
     @Override
     public boolean deleteStudentByName(Student student) {
         if (getStudentById(student.getId()) != null) {
