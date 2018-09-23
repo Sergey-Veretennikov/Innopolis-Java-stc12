@@ -42,6 +42,14 @@ public class StudentMapper {
         }
     }
 
+    /**
+     * Метод удаления Student или Group в зависимости от параметра deleteIdStudentOrGroup
+     *
+     * @param id
+     * @param connection
+     * @param deleteIdStudentOrGroup
+     * @return
+     */
     public static boolean deleteStudentOrGroup(int id, Connection connection, String deleteIdStudentOrGroup) {
         try (PreparedStatement preparedStatement = connection.prepareStatement(deleteIdStudentOrGroup)) {
             preparedStatement.setInt(1, id);

@@ -26,7 +26,7 @@ public class GroupDaoImpl implements GroupDao {
 
     @Override
     public boolean addGroup(Group group) {
-        if (addDeleteGroup(group, connection, INSERT_COURSE)) {
+        if (addOrDeleteGroup(group, connection, INSERT_COURSE)) {
             return false;
         }
         return true;
@@ -88,7 +88,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public boolean deleteGroupByName(Group group) {
         if (getGroupByName(group.getName()) != null) {
-            if (addDeleteGroup(group, connection, DELETE_NAME_COURSE)) {
+            if (addOrDeleteGroup(group, connection, DELETE_NAME_COURSE)) {
                 return false;
             }
             return true;
@@ -103,8 +103,16 @@ public class GroupDaoImpl implements GroupDao {
         System.out.println("Connection closed. Bye!");
     }
 
-    private boolean addDeleteGroup(Group group, Connection connection, String deleteNameCourse) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteNameCourse)) {
+    /**
+     * Метод добавления или удаление группы, в зависимости параметра addOrdeleteNameCourse
+     *
+     * @param group
+     * @param connection
+     * @param addOrdeleteNameCourse
+     * @return
+     */
+    private boolean addOrDeleteGroup(Group group, Connection connection, String addOrdeleteNameCourse) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(addOrdeleteNameCourse)) {
             preparedStatement.setString(1, group.getName());
             preparedStatement.execute();
         } catch (SQLException e) {
