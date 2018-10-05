@@ -108,7 +108,6 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public List<Student> getAllStudents() {
         List<Student> result = new ArrayList<>();
-        LOGGER.debug(connection);
         try (PreparedStatement statement = connection.prepareStatement(SELECT_STUDENTS);
         ) {
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -125,7 +124,6 @@ public class StudentDaoImpl implements StudentDao {
             LOGGER.error(e.getMessage(), e);
             return result;
         }
-        LOGGER.debug(result);
         return result;
     }
 

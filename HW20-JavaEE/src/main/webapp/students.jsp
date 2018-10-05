@@ -29,6 +29,8 @@
     }
 %>
 <BR>
-<button type="button" name="back" onclick="history.back()">Назад</button>
+<form action="/">
+    <button type="submit">Возврат на главную страницу</button>
+</form>
 </body>
 </html>
