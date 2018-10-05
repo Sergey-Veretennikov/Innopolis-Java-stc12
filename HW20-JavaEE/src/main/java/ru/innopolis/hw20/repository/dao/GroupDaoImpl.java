@@ -1,5 +1,6 @@
 package ru.innopolis.hw20.repository.dao;
 
+import org.apache.log4j.Logger;
 import ru.innopolis.hw20.pojo.Group;
 import ru.innopolis.hw20.repository.connectionManager.ConnectionManager;
 import ru.innopolis.hw20.repository.connectionManager.ConnectionManagerImpl;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GroupDaoImpl implements GroupDao {
+    private static final Logger LOGGER = Logger.getRootLogger();
     private static final String INSERT_COURSE = "INSERT INTO courses VALUES (DEFAULT, ?)";
     private static final String SELECT_NAME_COURSE = "SELECT * FROM courses WHERE name = ?";
     private static final String SELECT_ID_COURSE = "SELECT * FROM courses WHERE id = ?";
@@ -39,7 +41,7 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setString(1, groupName);
             group = getGroup(preparedStatement);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         return group;
@@ -52,7 +54,7 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setInt(1, id);
             group = getGroup(preparedStatement);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
         return group;
@@ -66,7 +68,7 @@ public class GroupDaoImpl implements GroupDao {
                 preparedStatement.setInt(2, group.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 return false;
             }
             return true;
@@ -80,9 +82,8 @@ public class GroupDaoImpl implements GroupDao {
         if (getGroupById(id) != null) {
             if (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_COURSE)) return false;
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -92,15 +93,14 @@ public class GroupDaoImpl implements GroupDao {
                 return false;
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
     public void close() throws Exception {
         connection.close();
-        System.out.println("Connection closed. Bye!");
+        LOGGER.info(connection + "Connection closed");
     }
 
     /**
@@ -116,7 +116,7 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setString(1, group.getName());
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return true;
         }
         return false;

@@ -1,5 +1,6 @@
 package ru.innopolis.hw20.repository.dao.mappers;
 
+import org.apache.log4j.Logger;
 import ru.innopolis.hw20.pojo.Group;
 import ru.innopolis.hw20.pojo.Student;
 
@@ -9,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StudentMapper {
+    private static final Logger LOGGER = Logger.getRootLogger();
 
     private StudentMapper() {
     }
@@ -22,7 +24,7 @@ public class StudentMapper {
             preparedStatement.setInt(4, student.getAge());
             preparedStatement.setString(5, student.getContact());
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         return preparedStatement;
     }
@@ -55,7 +57,7 @@ public class StudentMapper {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return true;
         }
         return false;

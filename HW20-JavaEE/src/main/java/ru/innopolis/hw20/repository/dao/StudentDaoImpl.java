@@ -1,5 +1,6 @@
 package ru.innopolis.hw20.repository.dao;
 
+import org.apache.log4j.Logger;
 import ru.innopolis.hw20.pojo.Group;
 import ru.innopolis.hw20.pojo.Student;
 import ru.innopolis.hw20.repository.connectionManager.ConnectionManager;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
+    private static final Logger LOGGER = Logger.getRootLogger();
     private static final String INSERT_STUDENTS = "INSERT INTO studens VALUES (DEFAULT, ?, ?, ?, ?, ?)";
     private static final String SELECT_ID_STUDENTS = "SELECT * FROM studens " +
             "INNER JOIN courses ON courses.id=studens.group_id WHERE studens.id=?";
@@ -21,6 +23,8 @@ public class StudentDaoImpl implements StudentDao {
             "SET name = ?, surname = ?, group_id = ?, age = ?, contact = ? WHERE id = ?";
     private static final String DELETE_ID_STUDENTS = "DELETE FROM studens WHERE id = ?";
     private static final String DELETE_STUDENTS = "DELETE FROM studens WHERE name = ?";
+    private static final String SELECT_STUDENTS = "SELECT * FROM studens INNER JOIN courses ON " +
+            "courses.id=studens.group_id";
     private static ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
     private final Connection connection;
 
@@ -36,12 +40,12 @@ public class StudentDaoImpl implements StudentDao {
             }
             student.setGroup(groupDao.getGroupByName(student.getGroup().getName()));
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
         }
         try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_STUDENTS)) {
             StudentMapper.getPreparedStatementFromStudent(preparedStatement, student).execute();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return false;
         }
         return true;
@@ -53,7 +57,7 @@ public class StudentDaoImpl implements StudentDao {
             preparedStatement.setInt(1, id);
             return StudentMapper.getStudentFromResultSet(preparedStatement);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error(e.getMessage(), e);
             return null;
         }
     }
@@ -66,7 +70,7 @@ public class StudentDaoImpl implements StudentDao {
                         .setInt(6, student.getId());
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
                 return false;
             }
             return true;
@@ -82,9 +86,8 @@ public class StudentDaoImpl implements StudentDao {
                 return false;
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -94,7 +97,7 @@ public class StudentDaoImpl implements StudentDao {
                 preparedStatement.setString(1, student.getName());
                 preparedStatement.execute();
             } catch (SQLException e) {
-                e.printStackTrace();
+                LOGGER.error(e.getMessage(), e);
             }
             return true;
         } else {
@@ -105,10 +108,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public List<Student> getAllStudents() {
         List<Student> result = new ArrayList<>();
-        Connection connection = connectionManager.getConnection();
-        Student student = null;
-        try (PreparedStatement statement = connection.prepareStatement(
-                "SELECT * FROM studens INNER JOIN courses ON courses.id=studens.group_id");
+        try (PreparedStatement statement = connection.prepareStatement(SELECT_STUDENTS);
         ) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
@@ -121,8 +121,8 @@ public class StudentDaoImpl implements StudentDao {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+            LOGGER.error(e.getMessage(), e);
+            return result;
         }
         return result;
     }
@@ -130,6 +130,6 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public void close() throws Exception {
         connection.close();
-        System.out.println("Connection closed. Bye!");
+        LOGGER.info("Connection closed" + connection);
     }
 }
