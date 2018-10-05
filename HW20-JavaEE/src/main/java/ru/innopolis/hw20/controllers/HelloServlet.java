@@ -7,9 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class HelloServlet extends HttpServlet {
+    String testString = "";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("Hello, world");
+        resp.getWriter().println("testString = " + testString);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        testString = req.getParameter("testText");
     }
 }

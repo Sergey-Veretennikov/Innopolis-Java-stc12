@@ -24,4 +24,13 @@
         <url-pattern>/students</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddStudents</servlet-name>
+        <servlet-class>ru.innopolis.hw20.controllers.AddStudentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddStudents</servlet-name>
+        <url-pattern>/addStudents</url-pattern>
+    </servlet-mapping>
+
 </web-app>

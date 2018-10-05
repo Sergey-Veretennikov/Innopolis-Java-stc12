@@ -12,13 +12,23 @@
     <title>Список студентов:</title>
 </head>
 <body>
+<H3>Список студентов</H3>
 <%
     List<Student> list = (List<Student>) request.getAttribute("list");
     for (Student student : list) {
 %>
-<%=student.getSurname()%> <%=student.getName()%> <%=student.getGroup()%><BR>
+<fieldset>
+    <legend>Данные о студенте</legend>
+    Имя:  <%=student.getSurname()%> <br/>
+    Фамилия: <%=student.getName()%> <br/>
+    Возраст: <%=student.getAge()%> <br/>
+    Контакт: <%=student.getContact()%> <br/>
+    Группа №: <%=student.getGroup().getName()%><br/>
+</fieldset>
 <%
     }
 %>
+<BR>
+<button type="button" name="back" onclick="history.back()">Назад</button>
 </body>
 </html>
