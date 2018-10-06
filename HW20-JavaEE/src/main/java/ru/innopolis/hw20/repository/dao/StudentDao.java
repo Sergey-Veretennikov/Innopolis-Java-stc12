@@ -16,4 +16,6 @@ public interface StudentDao extends AutoCloseable {
     boolean deleteStudentByName(Student student);
 
     List<Student> getAllStudents();
+
+    List<Student> getStudentBySurname(String surname);
 }

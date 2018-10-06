@@ -1,15 +1,21 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Внесение данных</title>
 </head>
 <body>
+
 <%
     if (("notAllFieldsFilled").equals(request.getParameter("action"))) {
 %>
 <div style="color:#AA0000">Не все поля заполнены!</div>
 <%}%>
+<%
+    if (("studentExists").equals(request.getParameter("action"))) {
+%>
+<div style="color:#9caa13">Студент уже есть в базе!</div>
+<%}%>
+
 <form method="post" action="/addStudents">
     <fieldset>
         <legend>Данные о студенте</legend>

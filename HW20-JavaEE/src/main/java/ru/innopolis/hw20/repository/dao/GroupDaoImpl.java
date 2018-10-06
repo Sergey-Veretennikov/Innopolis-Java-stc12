@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GroupDaoImpl implements GroupDao {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(GroupDaoImpl.class);
     private static final String INSERT_COURSE = "INSERT INTO courses VALUES (DEFAULT, ?)";
     private static final String SELECT_NAME_COURSE = "SELECT * FROM courses WHERE name = ?";
     private static final String SELECT_ID_COURSE = "SELECT * FROM courses WHERE id = ?";

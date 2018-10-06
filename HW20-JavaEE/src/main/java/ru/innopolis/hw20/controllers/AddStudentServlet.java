@@ -1,7 +1,6 @@
 package ru.innopolis.hw20.controllers;
 
 import org.apache.log4j.Logger;
-import ru.innopolis.hw20.service.StudentService;
 import ru.innopolis.hw20.service.StudentServiceImpl;
 
 import javax.servlet.ServletException;
@@ -11,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class AddStudentServlet extends HttpServlet {
-    private static final Logger LOGGER = Logger.getRootLogger();
-    private StudentService studentService;
+    private static final Logger LOGGER = Logger.getLogger(AddStudentServlet.class);
+    private StudentServiceImpl studentService;
 
     @Override
     public void init() throws ServletException {
@@ -34,7 +33,7 @@ public class AddStudentServlet extends HttpServlet {
         String name = req.getParameter("name").trim();
         String surname = req.getParameter("surname").trim();
         String nameGroup = req.getParameter("nameGroup").trim();
-        String age = req.getParameter("age").replace("[^\\d]", "");
+        String age = req.getParameter("age");
         String contact = req.getParameter("contact").trim();
         try {
             if (name == null || name.length() == 0 ||
@@ -45,9 +44,15 @@ public class AddStudentServlet extends HttpServlet {
                 resp.sendRedirect("/addStudents?action=notAllFieldsFilled");
             } else {
                 studentService.AddStudents(name, surname, nameGroup, age, contact);
-                resp.sendRedirect("/addStudents");
+                if (studentService.getFlagStudentExists()) {
+                    studentService.setFlagStudentExists(false);
+                    resp.sendRedirect("/addStudents?action=studentExists");
+                } else {
+                    resp.sendRedirect("/addStudents");
+                }
             }
-        } catch (IOException e) {
+        } catch (
+                IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
     }

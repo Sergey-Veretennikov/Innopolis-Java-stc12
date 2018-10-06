@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class StudentServlet extends HttpServlet {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(StudentServlet.class);
     private StudentService studentService;
 
     @Override

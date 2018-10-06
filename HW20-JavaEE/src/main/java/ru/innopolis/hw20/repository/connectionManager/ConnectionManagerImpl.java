@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionManagerImpl implements ConnectionManager {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(ConnectionManagerImpl.class);
     private static final String URL = "jdbc:postgresql:" +
             "//localhost:5432" +
             "/Innopolis University";
