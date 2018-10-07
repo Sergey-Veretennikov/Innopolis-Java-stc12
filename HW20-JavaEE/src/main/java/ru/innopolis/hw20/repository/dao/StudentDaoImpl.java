@@ -26,7 +26,7 @@ public class StudentDaoImpl implements StudentDao {
             "courses.id=studens.group_id";
     private static final String SELECT_SURNAME_STUDENTS = "SELECT * FROM studens " +
             "INNER JOIN courses ON courses.id=studens.group_id WHERE studens.surname=?";
-    private static ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
     private final Connection connection;
 
     public StudentDaoImpl() {

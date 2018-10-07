@@ -10,7 +10,7 @@ import java.util.List;
 
 public class StudentServiceImpl implements StudentService {
     private static final Logger LOGGER = Logger.getLogger(StudentServiceImpl.class);
-    private StudentDao studentDao;
+    private final StudentDao studentDao;
 
     public StudentServiceImpl() {
         studentDao = new StudentDaoImpl();

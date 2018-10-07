@@ -13,8 +13,9 @@ import java.sql.SQLException;
 public class UserDaoImpl implements UserDao {
     private static final Logger LOGGER = Logger.getLogger(UserDaoImpl.class);
     private static final String INSERT_USER = "INSERT INTO users VALUES (DEFAULT, ?, ?, ?)";
+    private static final String SELECT_LOGIN = "SELECT * FROM users WHERE users.username = ?";
     private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
-    Connection connection;
+    private final Connection connection;
 
     public UserDaoImpl() {
         this.connection = connectionManager.getConnection();
@@ -22,19 +23,9 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByLogin(String login) {
-        try (PreparedStatement preparedStatement = connection.prepareStatement(
-                "SELECT * FROM users WHERE users.username = ?");) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_LOGIN)) {
             preparedStatement.setString(1, login);
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return new User(resultSet.getInt(1),
-                            resultSet.getString(2),
-                            resultSet.getString(3),
-                            resultSet.getInt(4));
-                }
-            } catch (Exception e) {
-                LOGGER.error(e.getMessage(), e);
-            }
+            return getUserByLogin(preparedStatement);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -53,5 +44,25 @@ public class UserDaoImpl implements UserDao {
             return false;
         }
         return true;
+    }
+
+    private User getUserByLogin(PreparedStatement preparedStatement) {
+        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                return new User(resultSet.getInt(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getInt(4));
+            }
+        } catch (Exception e) {
+            LOGGER.error(e.getMessage(), e);
+        }
+        return null;
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
+        LOGGER.info("Connection closed" + connection);
     }
 }

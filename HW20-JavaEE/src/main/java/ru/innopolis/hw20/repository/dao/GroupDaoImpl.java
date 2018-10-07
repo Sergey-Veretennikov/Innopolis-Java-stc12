@@ -19,7 +19,7 @@ public class GroupDaoImpl implements GroupDao {
     private static final String UPDATE_COURSE = "UPDATE courses SET name = ? WHERE id = ?";
     private static final String DELETE_ID_COURSE = "DELETE FROM courses WHERE id = ?";
     private static final String DELETE_NAME_COURSE = "DELETE FROM courses WHERE name = ?";
-    private static ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
     private final Connection connection;
 
     public GroupDaoImpl() {

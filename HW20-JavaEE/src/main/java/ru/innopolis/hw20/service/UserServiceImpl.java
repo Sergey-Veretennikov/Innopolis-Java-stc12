@@ -5,7 +5,7 @@ import ru.innopolis.hw20.repository.dao.UserDao;
 import ru.innopolis.hw20.service.utils.HashUtil;
 
 public class UserServiceImpl implements UserService {
-    UserDao userDao;
+    private final UserDao userDao;
 
     public UserServiceImpl(UserDao userDao) {
         this.userDao = userDao;
@@ -26,14 +26,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User checkAuth(String login, String password) {
-        //TODO:Удалить тестовые учетки из базы
         User user;
         if ((login != null) && (password != null)) {
             user = userDao.getUserByLogin(login);
-            if (user != null) {
-                if (user.getPassword().equals(HashUtil.stringToMD5(password))) {
-                    return user;
-                }
+            if (user != null && user.getPassword().equals(HashUtil.stringToMD5(password))) {
+                return user;
             }
         }
         return null;
@@ -45,9 +42,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         User user = new User(0, login, HashUtil.stringToMD5(password), role);
-        if (userDao.addUser(user)) {
-            return true;
-        }
-        return false;
+        return (userDao.addUser(user));
     }
 }

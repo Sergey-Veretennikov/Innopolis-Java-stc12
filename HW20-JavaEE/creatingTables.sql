@@ -49,3 +49,20 @@ alter table users
 
 create unique index users_username_uindex
   on users (username);
+
+-- auto-generated definition
+create table users
+(
+  id       serial      not null
+    constraint users_pkey
+    primary key,
+  username varchar(30) not null,
+  password varchar(40) not null,
+  role     integer     not null
+);
+
+alter table users
+  owner to postgres;
+
+create unique index users_username_uindex
+  on users (username);
