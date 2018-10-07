@@ -11,7 +11,6 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     private static final Logger LOGGER = Logger.getLogger(StudentServiceImpl.class);
     private StudentDao studentDao;
-    private List<Student> studentList;
     private Boolean flagStudentExists = false;
 
     public StudentServiceImpl() {
@@ -26,13 +25,16 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void AddStudents(String name, String surname, String nameGroup, String age, String contact) {
         Student student = null;
-        studentList = studentDao.getStudentBySurname(surname);
-        for (Student st : studentList) {
-            if (st.getName().equals(name) && st.getSurname().equals(surname) &&
-                    st.getGroup().getName().equals(nameGroup) && st.getAge() == Integer.parseInt(age) &&
-                    st.getContact().equals(contact)) {
-                student = st;
-                flagStudentExists = true;
+        List<Student> studentList = studentDao.getStudentBySurname(surname);
+        if (!studentList.isEmpty()) {
+            for (Student st : studentList) {
+                if (st.getName().equals(name) && st.getSurname().equals(surname) &&
+                        st.getGroup().getName().equals(nameGroup) && st.getAge() == Integer.parseInt(age) &&
+                        st.getContact().equals(contact)) {
+                    student = st;
+                    flagStudentExists = true;
+                    break;
+                }
             }
         }
         if (student == null) {

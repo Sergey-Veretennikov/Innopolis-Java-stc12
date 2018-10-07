@@ -28,7 +28,7 @@ public class StudentServlet extends HttpServlet {
         req.setAttribute("list", list);
         LOGGER.info(list.toString());
         try {
-            req.getRequestDispatcher("/students.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/pages/students.jsp").forward(req, resp);
         } catch (ServletException | IOException e) {
             LOGGER.error(e.getMessage(), e);
         }

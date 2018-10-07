@@ -2,12 +2,9 @@
 <%@ page import="java.util.List" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Список студентов:</title>
-</head>
+<%@include file="../../header.jsp" %>
 <body>
-<H3>Список студентов</H3>
+<H3>Список студентов:</H3>
 <%
     List<Student> list = (List<Student>) request.getAttribute("list");
     for (Student student : list) {
@@ -24,8 +21,8 @@
     }
 %>
 <BR>
-<form action="/">
-    <button type="submit">Возврат на главную страницу</button>
+<form action="/inner/dashboard">
+    <button type="submit">Назад</button>
 </form>
 </body>
 </html>

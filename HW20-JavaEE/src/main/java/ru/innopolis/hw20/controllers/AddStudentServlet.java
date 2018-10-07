@@ -22,7 +22,7 @@ public class AddStudentServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("/addStudents.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/pages/addStudents.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             LOGGER.error(e.getMessage(), e);
         }
@@ -41,14 +41,14 @@ public class AddStudentServlet extends HttpServlet {
                     nameGroup == null || nameGroup.length() == 0 ||
                     age == null || age.length() == 0 ||
                     contact == null || contact.length() == 0) {
-                resp.sendRedirect("/addStudents?action=notAllFieldsFilled");
+                resp.sendRedirect("/inner/addStudents?action=notAllFieldsFilled");
             } else {
                 studentService.AddStudents(name, surname, nameGroup, age, contact);
                 if (studentService.getFlagStudentExists()) {
                     studentService.setFlagStudentExists(false);
-                    resp.sendRedirect("/addStudents?action=studentExists");
+                    resp.sendRedirect("/inner/addStudents?action=studentExists");
                 } else {
-                    resp.sendRedirect("/addStudents");
+                    resp.sendRedirect("/inner/addStudents");
                 }
             }
         } catch (
