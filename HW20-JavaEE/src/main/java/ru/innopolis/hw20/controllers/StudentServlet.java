@@ -14,13 +14,7 @@ import java.util.List;
 
 public class StudentServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(StudentServlet.class);
-    private StudentService studentService;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        studentService = new StudentServiceImpl();
-    }
+    private final StudentService studentService = new StudentServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {

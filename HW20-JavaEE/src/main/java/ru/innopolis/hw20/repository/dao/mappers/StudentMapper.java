@@ -60,8 +60,8 @@ public class StudentMapper {
             preparedStatement.execute();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 }

@@ -14,7 +14,7 @@
         <br/>
         <fieldset>
             <legend>Зарегистрироваться</legend>
-            <a href="/login">Регистрация</a><BR><BR>
+            <a href="/registration">Регистрация</a><BR><BR>
         </fieldset>
 
     </form>

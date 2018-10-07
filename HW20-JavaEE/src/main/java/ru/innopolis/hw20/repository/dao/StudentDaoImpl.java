@@ -88,10 +88,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public boolean deleteStudentById(int id) {
         if (getStudentById(id) != null) {
-            if (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_STUDENTS)) {
-                return false;
-            }
-            return true;
+            return (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_STUDENTS));
         }
         return false;
     }

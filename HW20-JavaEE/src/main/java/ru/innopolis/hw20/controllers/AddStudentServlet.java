@@ -1,6 +1,7 @@
 package ru.innopolis.hw20.controllers;
 
 import org.apache.log4j.Logger;
+import ru.innopolis.hw20.service.StudentService;
 import ru.innopolis.hw20.service.StudentServiceImpl;
 
 import javax.servlet.ServletException;
@@ -11,13 +12,8 @@ import java.io.IOException;
 
 public class AddStudentServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(AddStudentServlet.class);
-    private StudentServiceImpl studentService;
+    private final StudentService studentService = new StudentServiceImpl();
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        studentService = new StudentServiceImpl();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -36,24 +32,24 @@ public class AddStudentServlet extends HttpServlet {
         String age = req.getParameter("age");
         String contact = req.getParameter("contact").trim();
         try {
-            if (name == null || name.length() == 0 ||
-                    surname == null || surname.length() == 0 ||
-                    nameGroup == null || nameGroup.length() == 0 ||
-                    age == null || age.length() == 0 ||
-                    contact == null || contact.length() == 0) {
+            if (checksDataForValidity(name, surname, nameGroup, age, contact)) {
                 resp.sendRedirect("/inner/addStudents?action=notAllFieldsFilled");
             } else {
-                studentService.AddStudents(name, surname, nameGroup, age, contact);
-                if (studentService.getFlagStudentExists()) {
-                    studentService.setFlagStudentExists(false);
-                    resp.sendRedirect("/inner/addStudents?action=studentExists");
-                } else {
+                if (studentService.addStudents(name, surname, nameGroup, age, contact)) {
                     resp.sendRedirect("/inner/addStudents");
+                } else {
+                    resp.sendRedirect("/inner/addStudents?action=studentExists");
                 }
             }
         } catch (
                 IOException e) {
             LOGGER.error(e.getMessage(), e);
         }
+    }
+
+    private boolean checksDataForValidity(String name, String surname, String nameGroup, String age, String contact) {
+        return (name == null || name.length() == 0 || surname == null || surname.length() == 0 ||
+                nameGroup == null || nameGroup.length() == 0 || age == null || age.length() == 0 ||
+                contact == null || contact.length() == 0);
     }
 }

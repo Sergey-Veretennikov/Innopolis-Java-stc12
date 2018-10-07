@@ -25,16 +25,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean checkAuth(String login, String password) {
+    public User checkAuth(String login, String password) {
         //TODO:Удалить тестовые учетки из базы
         User user;
         if ((login != null) && (password != null)) {
             user = userDao.getUserByLogin(login);
             if (user != null) {
                 if (user.getPassword().equals(HashUtil.stringToMD5(password))) {
-                    return true;
+                    return user;
                 }
             }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean addUser(String login, String password, int role) {
+        if (checkAuth(login, password) != null) {
+            return false;
+        }
+        User user = new User(0, login, HashUtil.stringToMD5(password), role);
+        if (userDao.addUser(user)) {
+            return true;
         }
         return false;
     }

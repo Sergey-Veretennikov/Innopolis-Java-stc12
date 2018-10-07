@@ -2,10 +2,6 @@
 <%@ include file="/header.jsp" %>
 <body>
 <div>
-    <h3>Вы вошли как <%=request.getSession().getAttribute("login")%>,
-        <a href="/index.jsp?action=logout">выйти</a></h3>
-</div>
-<div>
     <%
         if (request.getSession().getAttribute("login") != null) {
     %>
