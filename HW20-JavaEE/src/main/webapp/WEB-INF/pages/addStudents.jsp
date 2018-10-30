@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@include file="../../header.jsp" %>
+<html>
 <body>
 <H3>Внесение данных стедента в базу:</H3>
 <%

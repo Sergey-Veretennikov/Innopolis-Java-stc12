@@ -2,6 +2,7 @@ package ru.innopolis.hw20.controllers;
 
 import org.apache.log4j.Logger;
 import ru.innopolis.hw20.pojo.Student;
+import ru.innopolis.hw20.repository.dao.StudentDaoImpl;
 import ru.innopolis.hw20.service.StudentService;
 import ru.innopolis.hw20.service.StudentServiceImpl;
 
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class StudentServlet extends HttpServlet {
     private static final Logger LOGGER = Logger.getLogger(StudentServlet.class);
-    private final StudentService studentService = new StudentServiceImpl();
+    private final StudentService studentService = new StudentServiceImpl(new StudentDaoImpl());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {

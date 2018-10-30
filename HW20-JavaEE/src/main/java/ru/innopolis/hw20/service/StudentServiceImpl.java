@@ -4,7 +4,6 @@ import org.apache.log4j.Logger;
 import ru.innopolis.hw20.pojo.Group;
 import ru.innopolis.hw20.pojo.Student;
 import ru.innopolis.hw20.repository.dao.StudentDao;
-import ru.innopolis.hw20.repository.dao.StudentDaoImpl;
 
 import java.util.List;
 
@@ -12,8 +11,8 @@ public class StudentServiceImpl implements StudentService {
     private static final Logger LOGGER = Logger.getLogger(StudentServiceImpl.class);
     private final StudentDao studentDao;
 
-    public StudentServiceImpl() {
-        studentDao = new StudentDaoImpl();
+    public StudentServiceImpl(StudentDao studentDao) {
+        this.studentDao = studentDao;
     }
 
     @Override
