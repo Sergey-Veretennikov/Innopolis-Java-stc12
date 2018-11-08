@@ -6,16 +6,15 @@ import ru.innopolis.hw20.pojo.Student;
 import ru.innopolis.hw20.repository.connectionManager.ConnectionManager;
 import ru.innopolis.hw20.repository.connectionManager.ConnectionManagerImpl;
 import ru.innopolis.hw20.repository.dao.mappers.StudentMapper;
+import ru.innopolis.hw20.service.StudentServiceImpl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StudentDaoImpl implements StudentDao {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(StudentServiceImpl.class);
     private static final String INSERT_STUDENTS = "INSERT INTO studens VALUES (DEFAULT, ?, ?, ?, ?, ?)";
     private static final String SELECT_ID_STUDENTS = "SELECT * FROM studens " +
             "INNER JOIN courses ON courses.id=studens.group_id WHERE studens.id=?";
@@ -25,7 +24,9 @@ public class StudentDaoImpl implements StudentDao {
     private static final String DELETE_STUDENTS = "DELETE FROM studens WHERE name = ?";
     private static final String SELECT_STUDENTS = "SELECT * FROM studens INNER JOIN courses ON " +
             "courses.id=studens.group_id";
-    private static ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private static final String SELECT_SURNAME_STUDENTS = "SELECT * FROM studens " +
+            "INNER JOIN courses ON courses.id=studens.group_id WHERE studens.surname=?";
+    private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
     private final Connection connection;
 
     public StudentDaoImpl() {
@@ -53,9 +54,14 @@ public class StudentDaoImpl implements StudentDao {
 
     @Override
     public Student getStudentById(int id) {
+        List<Student> studentList;
         try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ID_STUDENTS)) {
             preparedStatement.setInt(1, id);
-            return StudentMapper.getStudentFromResultSet(preparedStatement);
+            studentList = StudentMapper.getStudentFromResultSet(preparedStatement);
+            if (studentList.isEmpty()) {
+                return null;
+            }
+            return studentList.get(0);
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
             return null;
@@ -82,10 +88,7 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public boolean deleteStudentById(int id) {
         if (getStudentById(id) != null) {
-            if (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_STUDENTS)) {
-                return false;
-            }
-            return true;
+            return (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_STUDENTS));
         }
         return false;
     }
@@ -108,9 +111,8 @@ public class StudentDaoImpl implements StudentDao {
     @Override
     public List<Student> getAllStudents() {
         List<Student> result = new ArrayList<>();
-        try (PreparedStatement statement = connection.prepareStatement(SELECT_STUDENTS);
-        ) {
-            try (ResultSet resultSet = statement.executeQuery()) {
+        try (Statement statement = connection.createStatement()) {
+            try (ResultSet resultSet = statement.executeQuery(SELECT_STUDENTS)) {
                 while (resultSet.next()) {
                     result.add(new Student(resultSet.getInt("id"),
                             resultSet.getString("name"),
@@ -122,9 +124,19 @@ public class StudentDaoImpl implements StudentDao {
             }
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-            return result;
         }
         return result;
+    }
+
+    @Override
+    public List<Student> getStudentBySurname(String surname) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_SURNAME_STUDENTS)) {
+            preparedStatement.setString(1, surname);
+            return StudentMapper.getStudentFromResultSet(preparedStatement);
+        } catch (SQLException e) {
+            LOGGER.error(e.getMessage(), e);
+            return Collections.emptyList();
+        }
     }
 
     @Override

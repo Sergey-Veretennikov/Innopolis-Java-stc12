@@ -12,14 +12,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class GroupDaoImpl implements GroupDao {
-    private static final Logger LOGGER = Logger.getRootLogger();
+    private static final Logger LOGGER = Logger.getLogger(GroupDaoImpl.class);
     private static final String INSERT_COURSE = "INSERT INTO courses VALUES (DEFAULT, ?)";
     private static final String SELECT_NAME_COURSE = "SELECT * FROM courses WHERE name = ?";
     private static final String SELECT_ID_COURSE = "SELECT * FROM courses WHERE id = ?";
     private static final String UPDATE_COURSE = "UPDATE courses SET name = ? WHERE id = ?";
     private static final String DELETE_ID_COURSE = "DELETE FROM courses WHERE id = ?";
     private static final String DELETE_NAME_COURSE = "DELETE FROM courses WHERE name = ?";
-    private static ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
+    private static final ConnectionManager connectionManager = ConnectionManagerImpl.getInstance();
     private final Connection connection;
 
     public GroupDaoImpl() {
@@ -28,10 +28,7 @@ public class GroupDaoImpl implements GroupDao {
 
     @Override
     public boolean addGroup(Group group) {
-        if (addOrDeleteGroup(group, connection, INSERT_COURSE)) {
-            return false;
-        }
-        return true;
+        return (addOrDeleteGroup(group, connection, INSERT_COURSE));
     }
 
     @Override
@@ -80,8 +77,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public boolean deleteGroupById(int id) {
         if (getGroupById(id) != null) {
-            if (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_COURSE)) return false;
-            return true;
+            return (StudentMapper.deleteStudentOrGroup(id, connection, DELETE_ID_COURSE));
         }
         return false;
     }
@@ -89,10 +85,7 @@ public class GroupDaoImpl implements GroupDao {
     @Override
     public boolean deleteGroupByName(Group group) {
         if (getGroupByName(group.getName()) != null) {
-            if (addOrDeleteGroup(group, connection, DELETE_NAME_COURSE)) {
-                return false;
-            }
-            return true;
+            return (addOrDeleteGroup(group, connection, DELETE_NAME_COURSE));
         }
         return false;
     }
@@ -117,9 +110,9 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.execute();
         } catch (SQLException e) {
             LOGGER.error(e.getMessage(), e);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     private Group getGroup(PreparedStatement preparedStatement) throws SQLException {

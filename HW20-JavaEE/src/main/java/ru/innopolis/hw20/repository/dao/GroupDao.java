@@ -2,7 +2,7 @@ package ru.innopolis.hw20.repository.dao;
 
 import ru.innopolis.hw20.pojo.Group;
 
-public interface GroupDao extends AutoCloseable {
+interface GroupDao extends AutoCloseable {
 
     boolean addGroup(Group group);
 

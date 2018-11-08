@@ -1,14 +1,23 @@
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@include file="header.jsp" %>
 <html>
-<head>
-    <title>Главная страница</title>
-</head>
 <body>
+<%
+    if ("logout".equals(request.getParameter("action"))) request.getSession().invalidate();
+%>
 <H3>Главная страница</H3>
 <div>
-    <a href="/students">Список студентов</a><BR><BR>
-    <a href="/addStudents">Доватиь студента в базу</a><BR><BR>
+    <form>
+        <fieldset>
+            <legend>Войти в систему</legend>
+            <a href="/login">Войти</a><BR><BR>
+        </fieldset>
+        <br/>
+        <fieldset>
+            <legend>Зарегистрироваться</legend>
+            <a href="/registration">Регистрация</a><BR><BR>
+        </fieldset>
+
     </form>
 </div>
 </body>
